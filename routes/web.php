@@ -32,3 +32,9 @@ Route::get('/dashboard', [Storycontroller::class, 'index'])->name('dashboard');
 Route::get('/dashboard/{id}', [Storycontroller::class, 'viewStory'])->name('viewStory');
 
 Route::get('/newdashboard', [HomeController::class, 'index'])->name('newdashboard');
+
+
+// Testing for navlink
+// Route::get('/profile', [ProfileController::class, 'edit'])->name('profile');
+// Route::get('/stories', [ProfileController::class, 'edit'])->name('stories');
+// Route::get('/settings', [ProfileController::class, 'edit'])->name('settings');

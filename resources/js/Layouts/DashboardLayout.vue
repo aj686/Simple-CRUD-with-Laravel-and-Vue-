@@ -11,7 +11,6 @@ const props = defineProps({
 
 </script>
 
-
 <template>
     <!-- Navbar -->
     <div class="flex-1">
@@ -26,9 +25,9 @@ const props = defineProps({
         <div class=" flex flex-col p-6">
             <!-- Cards Grid -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                <Card title="Users" count="1,250" />
-                <Card title="Revenue" count="$45,000" />
-                <Card title="Orders" count="3,500" />
+                <Card title="Stories" count="1,250" />
+                <Card title="Likes" count="45,000" />
+                <Card title="Comments" count="3,500" />
                 <Card title="Sessions" count="12,800" />
             </div>
 
@@ -38,5 +37,4 @@ const props = defineProps({
             </div>
         </div>
     </div>
-
 </template>
