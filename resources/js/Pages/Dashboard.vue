@@ -19,7 +19,6 @@ function addStory() {
 
 const showModal = ref(false);
 
-
 </script>
 
 <template>
@@ -33,6 +32,10 @@ const showModal = ref(false);
                 Dashboard
             </h2>
         </template>
+
+        <!-- <div>
+            <pre>{{ stories }}</pre>
+        </div> -->
 
         <div class="py-12">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">

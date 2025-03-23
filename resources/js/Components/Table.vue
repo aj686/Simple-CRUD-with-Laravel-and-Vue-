@@ -4,6 +4,7 @@ import Modal2 from './Modal2.vue'
 import ModalUpdate from './Modal/ModalUpdate.vue';
 import ModalView from './Modal/ModalView.vue';
 
+// props - read data only but cannot access
 const props = defineProps({
     items: Object // Receives one story object
 });
@@ -11,6 +12,12 @@ const props = defineProps({
 const showModal = ref(false);
 const showModalUpdate = ref(false);
 const showModalView = ref(false);
+const selectedItem = ref(null);
+
+const openModal = (id) => {
+    showModalView.value = true;
+    selectedItem.value = props.items.find(item => item.id === id);
+}
 
 
 
@@ -32,18 +39,32 @@ const showModalView = ref(false);
                     <td class="px-6 py-4 whitespace-nowrap">{{ i.title }}</td>
                     <td class="px-6 py-4 whitespace-nowrap">
                         <!-- Open View Modal -->
-                        <button 
-                            @click="showModalView = true" 
+                         <!-- Need to pass parameter id etc @click="viewStory(post.id) -->
+                         <button 
+                            @click="openModal(i.id)"
                             class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                         >
                             View
                         </button>
 
+                        <!-- <button 
+                            @click="showModalView = true" 
+                            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
+                        >
+                            View
+                        </button> -->
+
                         <!-- Teleported ModalUpdate Component -->
-                        <ModalView :showModalView="showModalView" :items="items" @close="showModalView = false" />
+                        <ModalView 
+                            :showModalView="showModalView"  
+                            :itemId="selectedItem?.id"  
+                            :itemTitle="selectedItem?.title"
+                            :itemContent="selectedItem?.content"
+                            @close="showModalView = false" 
+                        />
 
                         <!-- Open Edit Modal -->
-                        <button 
+                        <button b 
                             @click="showModalUpdate = true" 
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                         >

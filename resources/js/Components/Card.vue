@@ -33,7 +33,6 @@ const props = defineProps({
     <div class="border p-4 rounded-lg shadow-md">
         <h2 class="text-lg font-bold">{{ story.title }}</h2>
         <p class="text-gray-600">{{ story.content }}</p>
-        <p class="text-sm text-gray-500">By: {{ story.user?.name ?? 'Unknown' }}</p>
     </div>
 
 </template>

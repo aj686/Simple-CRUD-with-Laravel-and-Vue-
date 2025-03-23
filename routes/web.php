@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\Storycontroller;
+use App\Http\Controllers\HomeController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -28,3 +29,6 @@ Route::middleware('auth')->group(function () {
 require __DIR__.'/auth.php';
 
 Route::get('/dashboard', [Storycontroller::class, 'index'])->name('dashboard');
+Route::get('/dashboard/{id}', [Storycontroller::class, 'viewStory'])->name('viewStory');
+
+Route::get('/newdashboard', [HomeController::class, 'index'])->name('newdashboard');
