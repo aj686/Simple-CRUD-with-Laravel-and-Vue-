@@ -26,4 +26,14 @@ class HomeController extends Controller
     public function update(){}
 
     public function destroy(){}
+
+    // show all stories at first page - for all users
+    public function showAllStories()
+    {
+        $stories = Story::latest()->get();
+
+        return Inertia::render('Homepage', [
+            'stories' => $stories,
+        ]);
+    }
 }

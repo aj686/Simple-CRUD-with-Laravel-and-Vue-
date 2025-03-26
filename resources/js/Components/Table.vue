@@ -14,8 +14,13 @@ const showModalUpdate = ref(false);
 const showModalView = ref(false);
 const selectedItem = ref(null);
 
-const openModal = (id) => {
+const openModalView = (id) => {
     showModalView.value = true;
+    selectedItem.value = props.items.find(item => item.id === id);
+}
+
+const openModalUpdate = (id) => {
+    showModalUpdate.value = true;
     selectedItem.value = props.items.find(item => item.id === id);
 }
 
@@ -41,20 +46,13 @@ const openModal = (id) => {
                         <!-- Open View Modal -->
                          <!-- Need to pass parameter id etc @click="viewStory(post.id) -->
                          <button 
-                            @click="openModal(i.id)"
+                            @click="openModalView(i.id)"
                             class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
                         >
                             View
                         </button>
 
-                        <!-- <button 
-                            @click="showModalView = true" 
-                            class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800"
-                        >
-                            View
-                        </button> -->
-
-                        <!-- Teleported ModalUpdate Component -->
+                        <!-- Teleported ModalView Component -->
                         <ModalView 
                             :showModalView="showModalView"  
                             :itemId="selectedItem?.id"  
@@ -65,14 +63,20 @@ const openModal = (id) => {
 
                         <!-- Open Edit Modal -->
                         <button b 
-                            @click="showModalUpdate = true" 
+                            @click="openModalUpdate(i.id)" 
                             class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
                         >
                             Edit
                         </button>
 
                         <!-- Teleported ModalUpdate Component -->
-                        <ModalUpdate :showModalUpdate="showModalUpdate" @close="showModalUpdate = false" />
+                        <ModalUpdate 
+                            :showModalUpdate="showModalUpdate"  
+                            :itemId="selectedItem?.id"  
+                            :itemTitle="selectedItem?.title"
+                            :itemContent="selectedItem?.content"
+                            @close="showModalUpdate = false" 
+                        />
 
                         <!-- Open Delete Modal -->
                         <button 

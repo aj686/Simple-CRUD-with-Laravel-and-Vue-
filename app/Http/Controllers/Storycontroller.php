@@ -21,7 +21,24 @@ class Storycontroller extends Controller
     }
 
 
-    public function store(){}
+    public function store(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        Story::create([
+            'title' => $request->title,
+            'content' => $request->content,
+            'user_id' => Auth::user()->id,
+        ]);
+
+        // return Inertia::render('NewDashboard')->with('message', 'Story created successfully');
+        // return redirect()->route('newdashboard');
+        return to_route('newdashboard')->with('success', 'User created successfully!');
+        
+    }
 
     public function update(){}
 

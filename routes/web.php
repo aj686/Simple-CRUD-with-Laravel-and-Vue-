@@ -32,6 +32,8 @@ Route::get('/dashboard', [Storycontroller::class, 'index'])->name('dashboard');
 Route::get('/dashboard/{id}', [Storycontroller::class, 'viewStory'])->name('viewStory');
 
 Route::get('/newdashboard', [HomeController::class, 'index'])->name('newdashboard');
+Route::post('/store', [Storycontroller::class, 'store'])->name('stories.store');
+Route::get('/home', [HomeController::class, 'showAllStories'])->name('home');
 
 
 // Testing for navlink
