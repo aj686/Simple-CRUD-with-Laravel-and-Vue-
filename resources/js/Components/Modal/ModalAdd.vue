@@ -61,7 +61,8 @@ const saveStory = () => {
                     <div v-if="form.errors.content" class="text-red-500 text-sm">{{ form.errors.content }}</div>
 
                     <button type="submit" :disabled="form.processing" class="text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg px-5 py-2.5">
-                        Add
+                        <span v-if="form.processing">Adding...</span>
+                        <span v-else>Add</span>
                     </button>
                     <button type="button" @click="emit('close')" class="py-2.5 px-5 ml-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100">
                         Cancel

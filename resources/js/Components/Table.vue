@@ -24,6 +24,11 @@ const openModalUpdate = (id) => {
     selectedItem.value = props.items.find(item => item.id === id);
 }
 
+const openModalDelete = (id) => {
+    showModal.value = true;
+    selectedItem.value = props.items.find(item => item.id === id);
+};
+
 
 
 </script>
@@ -80,14 +85,20 @@ const openModalUpdate = (id) => {
 
                         <!-- Open Delete Modal -->
                         <button 
-                            @click="showModal = true" 
+                            @click="openModalDelete(i.id)" 
                             class="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2"
                         >
                             Delete
                         </button>
 
+
+
                         <!-- Teleported Modal Component -->
-                        <Modal2 :showModal="showModal" @close="showModal = false" />
+                        <Modal2 
+                            :showModal="showModal"  
+                            :itemId="selectedItem?.id"  
+                            @close="showModal = false" 
+                        />
                         
                         
                     </td>

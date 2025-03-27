@@ -33,6 +33,9 @@ Route::get('/dashboard/{id}', [Storycontroller::class, 'viewStory'])->name('view
 
 Route::get('/newdashboard', [HomeController::class, 'index'])->name('newdashboard');
 Route::post('/store', [Storycontroller::class, 'store'])->name('stories.store');
+Route::put('/update/{story}', [Storycontroller::class, 'update'])->name('stories.update');
+Route::delete('/destroy/{story}', [Storycontroller::class, 'destroy'])->name('stories.destroy');
+
 Route::get('/home', [HomeController::class, 'showAllStories'])->name('home');
 
 

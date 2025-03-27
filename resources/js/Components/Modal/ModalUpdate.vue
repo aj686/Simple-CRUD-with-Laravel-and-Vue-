@@ -1,5 +1,6 @@
 <script setup>
-import { defineProps, defineEmits } from 'vue';
+import { defineProps, defineEmits, watch } from 'vue';
+import { useForm } from '@inertiajs/vue3';
 
 const props = defineProps({
     showModalUpdate: Boolean,
@@ -9,6 +10,27 @@ const props = defineProps({
 });
 
 const emit = defineEmits(['close']);
+
+const form = useForm({
+    title: props.itemTitle,
+    content: props.itemContent,
+});
+
+// watch for changes in props and update form
+watch(() => [props.itemTitle, props.itemContent], ([newTitle, newContent]) => {
+    form.title = newTitle;
+    form.content = newContent;
+})
+
+const updateStory = () => {
+    form.put(`/update/${props.itemId}`, {
+        preserveScroll: true,
+        onSuccess: () => {
+            emit('close');
+            Inertia.visit('/newdashboard');
+        },
+    });
+}
 </script>
 
 <template>
@@ -26,13 +48,34 @@ const emit = defineEmits(['close']);
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
               </svg> -->
               <h3 class="mb-5 text-lg font-normal text-gray-500">Edit</h3>
-              <form action="">
-                <input type="text" class="border border-gray-200 rounded-lg px-3 py-2.5 w-full mb-3" placeholder="ID" :value="itemId" disabled>
-                <input type="text" class="border border-gray-200 rounded-lg px-3 py-2.5 w-full mb-3" placeholder="Title" :value="itemTitle" required>
-                <textarea class="border border-gray-200 rounded-lg px-3 py-2.5 w-full mb-3 h-60" placeholder="Content" :value="itemContent" required></textarea>
+              <form @submit.prevent="updateStory()">
+
+                <input type="text" class="border border-gray-200 rounded-lg px-3 py-2.5 w-full mb-3" 
+                  placeholder="ID" 
+                  :value="itemId" disabled
+                >
+
+                <input type="text" class="border border-gray-200 rounded-lg px-3 py-2.5 w-full mb-3" 
+                  placeholder="Title" 
+                  v-model="form.title"   
+                >
+                <div v-if="form.errors.title" class="text-red-500 text-sm">{{ form.errors.title }}</div>
+
+                <textarea class="border border-gray-200 rounded-lg px-3 py-2.5 w-full mb-3 h-60" 
+                  placeholder="Content" 
+                  v-model="form.content"
+                >
+                </textarea>
+                <div v-if="form.errors.content" class="text-red-500 text-sm">{{ form.errors.content }}</div>
+
+                <button type="submit" :disabled="form.processing" class="text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg px-5 py-2.5">
+                  Update
+                </button>
+
+                <button @click="emit('close')" class="py-2.5 px-5 ml-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100">
+                  Cancel
+                </button>
               </form>
-              <button @click="emit('close')" class="text-white bg-red-600 hover:bg-red-800 font-medium rounded-lg px-5 py-2.5">Update</button>
-              <button @click="emit('close')" class="py-2.5 px-5 ml-3 text-sm font-medium text-gray-900 bg-white border border-gray-200 rounded-lg hover:bg-gray-100">Cancel</button>
           </div>
       </div>
     </div>

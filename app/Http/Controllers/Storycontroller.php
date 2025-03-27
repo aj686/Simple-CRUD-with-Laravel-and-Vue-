@@ -36,11 +36,27 @@ class Storycontroller extends Controller
 
         // return Inertia::render('NewDashboard')->with('message', 'Story created successfully');
         // return redirect()->route('newdashboard');
-        return to_route('newdashboard')->with('success', 'User created successfully!');
+        return to_route('newdashboard')->with('success', 'Story created successfully!');
         
     }
 
-    public function update(){}
+    public function update(Request $request, Story $story)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
 
-    public function destroy(){}
+        $story->update([
+            'title' => $request->title,
+            'content' => $request->content,
+        ]);
+
+        return to_route('newdashboard')->with('success', 'Story updated successfully!');
+    }
+
+    public function destroy(Story $story){
+        $story->delete();
+        return to_route('newdashboard')->with('success', 'Story deleted successfully!');
+    }
 }
